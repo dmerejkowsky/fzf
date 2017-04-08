@@ -38,7 +38,7 @@ bindkey '^T' fzf-file-widget
 
 # ALT-C - jump to a previously visited directory
 fzf-cd-widget() {
-  ret=$(cat ~/.local/share/zsh/cwd_history | fzf --tac)
+  ret=$(cwd-history list | fzf --tac)
   builtin cd "${ret}"
   if [[ $? -ne 0 ]]; then
     cwd-history remove "${ret}"
