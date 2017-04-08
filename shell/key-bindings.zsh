@@ -72,5 +72,7 @@ bindkey '^R' fzf-history-widget
 # I also map 'up arrow' 'cause I'm lazy
 # and I'm already used to it :)
 bindkey '^[[A' fzf-history-widget
+bindkey ${key[Up]} fzf-history-widget
+
 
 fi
