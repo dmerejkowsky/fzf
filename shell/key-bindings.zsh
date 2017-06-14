@@ -36,20 +36,6 @@ fzf-file-widget() {
 zle     -N   fzf-file-widget
 bindkey '^T' fzf-file-widget
 
-# ALT-C - jump to a previously visited directory
-fzf-cd-widget() {
-  ret=$(cwd-history list | fzf --tac)
-  builtin cd "${ret}"
-  if [[ $? -ne 0 ]]; then
-    cwd-history remove "${ret}"
-  fi
-}
-zle     -N    fzf-cd-widget
-# yup, two bind keys. One for running the fzf-cd-widget,
-# and the other one to input the first binding followed by enter
-bindkey '\ed' fzf-cd-widget
-bindkey -s '\ec' '\ed\n'
-
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
   local selected num
