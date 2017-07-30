@@ -40,15 +40,10 @@ bindkey '^T' fzf-file-widget
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(fc -l 1 |
+  selected=( $(cat $HISTFILE | cut -f2 -d';'|
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(q)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
-  if [ -n "$selected" ]; then
-    num=$selected[1]
-    if [ -n "$num" ]; then
-      zle vi-fetch-history -n $num
-    fi
-  fi
+  LBUFFER="${selected}"
   zle redisplay
   typeset -f zle-line-init >/dev/null && zle zle-line-init
   return $ret
