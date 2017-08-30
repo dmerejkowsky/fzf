@@ -40,7 +40,7 @@ bindkey '^T' fzf-file-widget
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(cat $HISTFILE | cut -f2 -d';'|
+  selected=( $(cat $HISTFILE | cut -f2- -d';'|
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(q)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   LBUFFER="${selected}"
