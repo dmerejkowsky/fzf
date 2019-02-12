@@ -40,7 +40,7 @@ bindkey '^T' fzf-file-widget
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(fc -n -l "-${HISTSIZE}" | uniq-hist-sort | fzf --exact --query=${LBUFFER}) )
+  selected=( $(cmd-history list | fzf --exact --query=${LBUFFER}) )
   local ret=$?
   LBUFFER="${selected}"
   zle redisplay
